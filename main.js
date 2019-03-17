@@ -9,68 +9,59 @@ let productType =  [ {color:"White", count:"1014"}, {color:"Black", count:"1014"
 let sleeveLength = [ {color:"White", count:"1014"}, {color:"Black", count:"1014"},{color:"Navy", count:"1014"},
 {color:"Grey", count:"1014"}];
 
-let arrayOfUl = document.getElementsByClassName("dropdown__list");
+let arrayDropdown = document.getElementsByClassName("dropdown__list");
 InsertFilters();
 function InsertFilters(){
     for(let i=0; i<3; i++){
         if(i===0){
-            let first=arrayOfUl[i];
             sortArray.forEach(function(element){
-                let li = document.createElement("li");   
-                let text = document.createTextNode(element.color +"(" + element.count+")");   
-                li.appendChild(text); 
-                li.classList.add("dropdown__list__item");   
-                first.append(li)
+                let filterElement = document.createElement("li"); 
+                filterElement.innerHTML=(`${element.color} (${element.count})`);                  
+                filterElement.classList.add("dropdown__list__item");   
+                arrayDropdown[i].appendChild(filterElement);
             });
         }
         if(i===1){
-            let first=arrayOfUl[i];
             sortArray.forEach(function(element){
-                let li = document.createElement("li");   
-                let text = document.createTextNode(element.color +"(" + element.count +")");
-                li.appendChild(text);  
-                li.classList.add("dropdown__list__item");   
-                first.append(li)
+                let filterElement = document.createElement("li"); 
+                filterElement.innerHTML=(`${element.color} (${element.count})`);                  
+                filterElement.classList.add("dropdown__list__item");   
+                arrayDropdown[i].appendChild(filterElement);
             });
         }
         if(i===2){
-            let first=arrayOfUl[i];
             sortArray.forEach(function(element){
-                let li = document.createElement("li");   
-                let text = document.createTextNode(element.color +"(" + element.count + ")");   
-                li.appendChild(text);   
-                li.classList.add("dropdown__list__item");   
-                first.append(li)
+                let filterElement = document.createElement("li"); 
+                filterElement.innerHTML=(`${element.color} (${element.count})`);                  
+                filterElement.classList.add("dropdown__list__item");   
+                arrayDropdown[i].appendChild(filterElement);
             });
         }
     };
 }
 
 /* second task*/
- let divArray = document.getElementsByClassName("main__offers");
+ let divOffers = document.querySelector(".main__offers");
  let srcImg = "./assets/images/offer.jpg";
  let srcHeartShape="./assets/images/heart-shape.png";
  let srcHeartFull ="./assets/images/heart-full.png";
-
- 
- let desc = [" Wrangler small logo crew neck t-shirt in white",
-            "Wrangler logo chest stripe rugby polo in blue/white",
-            " Wrangler kobel retro large logo ringer t-shirt in white",
-            "Lyle & Scott polo in burgundy",
-            "sleeve t-shirt with graphic print in neon green",
-            "oversized t-shirt with rainbow",
-            "oversized t-shirt with back print",
-            "reloxed t-shirt with retro print" ];
-            
-let price = [ "£16.63","£50.63","£20.97","£44.12",
-            "£12.29","£22.42","£10.12","£18.08"];
+ let mainItems = [
+     {description:" Wrangler small logo crew neck t-shirt in white", price:"£16.63"},
+     {description:"Wrangler logo chest stripe rugby polo in blue/white", price:"£50.63"},
+     {description:"Wrangler kobel retro large logo ringer t-shirt in white", price:"£20.97" },
+     {description: "Lyle & Scott polo in burgundy", price: "£44.12"}, 
+     {description: "Unisex long sleeve t-shirt with graphic print in neon green", price: "£12.29"},
+     {description: "ASOS DESIGN Disney oversized t-shirt with rainbow", price: "£22.42"},
+     {description: "COLLUSION Unisex oversized t-shirt with back print", price: "£10.12"},
+     {description: "ASOS DESIGN Mickey relaxed t-shirt with retro print", price: "£18.08"}
+ ];
 
 InsertItems();
  function InsertItems(){
-     for(let i=0; i<desc.length; i++){
+     for(let i=0; i<mainItems.length; i++){
         let newDiv = document.createElement("div");
         newDiv.classList.add("offers__item");
-        divArray[0].appendChild(newDiv);
+        divOffers.appendChild(newDiv);
         let imgItem= document.createElement("img");
         imgItem.src=srcImg;
         imgItem.classList.add("item__img");
@@ -89,60 +80,95 @@ InsertItems();
         newDiv.appendChild(para);
         let description = document.createElement("p");
         description.classList.add("item__paragraph");
-        description.innerHTML = desc[i];
+        description.innerHTML = mainItems[i].description;
         newDiv.appendChild(description);
         let price = document.createElement("span");
         price.classList.add("item__price");
-        price.innerText = price[i];
-     }  
+        price.innerText = mainItems[i].price;
+     };
  }
 
 /* third */
-ChangeHoverOnFilters();
 /* changing hover on filters */
+let filterImg= document.querySelectorAll(".search-filter__img");
+ChangeHoverOnFilters(filterImg);
 function ChangeHoverOnFilters(){
     let filterArray = document.getElementsByClassName("container__search-filter");
     for(let i=0; i<filterArray.length; i++){
         filterArray[i].addEventListener("mouseover",function(){
-            let img = document.getElementsByClassName("search-filter__img");
-            img[i].setAttribute('style','transform:rotate(180deg)');            
+            filterImg[i].setAttribute('style','transform:rotate(180deg)');            
         });
         filterArray[i].addEventListener("mouseleave",function(){
-            let img = document.getElementsByClassName("search-filter__img");
-            img[i].setAttribute('style','transform:rotate(0deg)');
+            filterImg[i].setAttribute('style','transform:rotate(0deg)');
         });
     }
 };
+
+let shapeHeartImages = document.querySelectorAll(".item__heart-shape");
+let blackHeart = document.querySelectorAll(".item__heart-full");
+blackHeart.clicked = false;
+let items = document.querySelectorAll(".offers__item");
+let description = document.querySelectorAll(".item__img-description");
 /* changing hover on items */
-let shapeHeartImages = document.getElementsByClassName("item__heart-shape");
-let img = document.getElementsByClassName("item__heart-full");
 ChangeHoverOnImages();
 function ChangeHoverOnImages(){
-    let items = document.getElementsByClassName("offers__item");
     for(let i=0; i<items.length; i++){
             items[i].addEventListener("mouseover",function(){
-            let description = document.getElementsByClassName("item__img-description");
-            img[i].style.opacity = 1; 
+            blackHeart[i].style.opacity = 1; 
             description[i].style.opacity = 1;
             description[i].style.top ="297px";
         });
     };
     for(let i=0; i<items.length; i++){
             items[i].addEventListener("mouseleave",function(){
-            let img = document.getElementsByClassName("item__heart-full");
-            let description = document.getElementsByClassName("item__img-description");
-            img[i].style.opacity = 0;
-            description[i].style.opacity = 0;
+            if(!blackHeart[i].clicked){
+                blackHeart[i].style.opacity = 0;
+                description[i].style.opacity = 0;
+            }
+            else{
+                description[i].style.opacity = 0;
+            }
+            
         });
     };  
 }
-
 /* fourth task */
+let favorites = 0;
+let favSpan = document.createElement("span");
+favSpan.innerHTML = `Favorites: ${favorites}`;
+let main = document.querySelector("main");
 AddClickOnHeart();
 function AddClickOnHeart(){
-    for(let i=0; i< shapeHeartImages.length; i++){
-        shapeHeartImages[i].addEventListener("click",function(event){
-        img[i].style.opacity = 1;         
-        },true);
+    for(let i=0; i< blackHeart.length; i++){
+        blackHeart[i].addEventListener("click",function(){
+            if(blackHeart[i].clicked) {
+                blackHeart[i].clicked = false; 
+                favorites--;
+              }
+              else {
+                blackHeart[i].clicked = true;
+                favorites++;
+              } 
+              if(favorites){
+                favSpan.innerHTML = `Favorites: ${favorites}`;
+                main.appendChild(favSpan);
+              }
+              else
+                main.removeChild(favSpan);
+        });
     }
+}
+
+/* fifth task */
+let modelImage= document.querySelectorAll(".item__img");
+OpenWindow();
+function OpenWindow(){
+        for(let i=0; i<items.length; i++){
+            modelImage[i].addEventListener("click",function(){
+                let myWindow = window.open("","_blank");
+                myWindow.document.write(`<link rel="stylesheet" href="./assets/styles/main.css"/>
+                <body><main><div class="main__offers"> ${items[i].outerHTML} </div></main></body>`);
+                myWindow.document.close();               
+            });
+        }
 }

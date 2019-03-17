@@ -18,9 +18,6 @@ header {
     position: relative;
 }
 
-/*.container__search-filter:hover .search-filter__img {
-    transform: rotate(180deg);
-}*/
 
 .container__search-filter:hover .search-filter__text {
     color: #0770CF;
