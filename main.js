@@ -151,7 +151,7 @@ function AddClickOnHeart(){
               } 
               if(favorites){
                 favSpan.innerHTML = `Favorites: ${favorites}`;
-                main.appendChild(favSpan);
+                main.insertBefore(favSpan,main.childNodes[i]);
               }
               else
                 main.removeChild(favSpan);
@@ -165,9 +165,9 @@ OpenWindow();
 function OpenWindow(){
         for(let i=0; i<items.length; i++){
             modelImage[i].addEventListener("click",function(){
-                let myWindow = window.open("","_blank");
-                myWindow.document.write(`<link rel="stylesheet" href="./assets/styles/main.css"/>
-                <body><main><div class="main__offers"> ${items[i].outerHTML} </div></main></body>`);
+                let myWindow = window.open();
+                myWindow.document.write(` <h3>${mainItems[i].description}</h3>
+                <body><img src = "${srcImg}"></body>`);
                 myWindow.document.close();               
             });
         }
